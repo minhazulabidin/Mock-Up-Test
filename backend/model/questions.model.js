@@ -2,10 +2,10 @@ const { default: mongoose } = require("mongoose");
 
 
 const questionSchema = new mongoose.Schema({
-    userId: {
-        type: mongoose.Types.ObjectId,
-        ref: "User"
-    },
+    // userId: {
+    //     type: mongoose.Types.ObjectId,
+    //     ref: "User"
+    // },
     jobPosition: {
         type: String,
         required: true
@@ -17,7 +17,13 @@ const questionSchema = new mongoose.Schema({
     jobExperience: {
         type: Number,
         required: true
-    }
+    },
+    qaList: [
+        {
+            question: String,
+            answer: String
+        }
+    ]
 }, {
     timestamps: true
 })

@@ -10,16 +10,23 @@ import {
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
+// import { useUser } from '@clerk/nextjs'
 
 const AddNewQues = () => {
     const [openDialog, setOpenDialog] = useState(false)
     const [jobRole, setJobRole] = useState('')
     const [jobDesc, setJobDesc] = useState('')
     const [exp, setExp] = useState(0)
+    // const { user, isLoaded } = useUser()
+    // if (!isLoaded) return <p>Loading...</p>;
+    // const { fullName, imageUrl, primaryEmailAddress } = user;
+    // console.log(fullName, imageUrl, primaryEmailAddress.emailAddress)
 
-    const onSubmit=e=>{
+    const onSubmit = e => {
         e.preventDefault()
-        console.log(jobRole, jobDesc, exp   )
+        const inputPrompt = `Job Position: ${jobRole}, Job Description: ${jobDesc}, Years of Experience: ${exp}, Depends on this information please give me ${process.env.NEXT_PUBLIC_QUESTION_COUNT} interview question with Answered in json Format, Give Question and Answered as field in JSON`
+
+        
     }
     return (
         <div>
@@ -38,15 +45,15 @@ const AddNewQues = () => {
                                     <h2 className='text-sm! mb-4!'>Add Details about your job position/role, Job description and years of experience</h2>
                                     <div className='mb-2'>
                                         <label>Job Role/Job Position</label>
-                                        <Input className='mt-3' type='text' placeholder='Job Role/Job Position' required onChange={(e) => setJobRole(e.target.value)}/>
+                                        <Input className='mt-3' type='text' placeholder='Job Role/Job Position' required onChange={(e) => setJobRole(e.target.value)} />
                                     </div>
                                     <div className='mb-2'>
                                         <label>Job Description/ Tech Stack (In Short)</label>
-                                        <Textarea className='mt-3' type='text' placeholder='Ex. React, Angular,NodeJs, NextJs, ETC...' required onChange={(e) => setJobDesc(e.target.value)}/>
+                                        <Textarea className='mt-3' type='text' placeholder='Ex. React, Angular,NodeJs, NextJs, ETC...' required onChange={(e) => setJobDesc(e.target.value)} />
                                     </div>
                                     <div className='mb-2'>
                                         <label>Year's Of Experience</label>
-                                        <Input className='mt-3' type='number' placeholder='Ex. 5' required onChange={(e) => setExp(Number(e.target.value))}/>
+                                        <Input className='mt-3' type='number' placeholder='Ex. 5' required onChange={(e) => setExp(Number(e.target.value))} />
                                     </div>
                                     <div className='flex items-center justify-end mt-4 gap-4'>
                                         <Button type='button' variant='ghost' onClick={() => setOpenDialog(false)}>Cancel</Button>

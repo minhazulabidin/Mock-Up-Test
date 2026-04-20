@@ -1,15 +1,70 @@
-const { apiResponse } = require("../helper/apiResponse");
-const { asyncController } = require("../helper/asyncController");
-const questionsModel = require("../model/questions.model");
+const { GoogleGenAI } = require('@google/genai');
+const { asyncController } = require('../helper/asyncController');
+const questionsModel = require('../model/questions.model');
+const { apiResponse } = require('../helper/apiResponse');
+// const apiResponse = require('../helper/apiResponse');
 
 exports.addQuestionController = asyncController(async (req, res) => {
-    const { userId, jobPosition, jobDescription, jobExperience } = req.body;
+    const {  jobPosition, jobDescription, jobExperience } = req.body;
+
+    // 🔍 Validation
     if (!jobPosition || !jobDescription || !jobExperience) {
-        apiResponse(res, 400, "All fields are required");
-    } else {
-        const questions = await new questionsModel({
-            userId, jobPosition, jobDescription, jobExperience
-        }).save();
-        apiResponse(res, 200, "Question added successfully", questions);
+        return apiResponse(res, 400, "All fields are required");
     }
-})
+
+    // 🤖 Gemini init
+    const ai = new GoogleGenAI({
+        apiKey: process.env.GEMINI_API_KEY,
+    });
+
+    // 🧠 Prompt
+    const prompt = `
+Job Position: ${jobPosition}
+Job Description: ${jobDescription}
+Years of Experience: ${jobExperience}
+
+Based on this information, generate ${process.env.QUESTION_COUNT} interview questions with answers.
+
+Return strictly valid JSON:
+[
+  {
+    "question": "...",
+    "answer": "..."
+  }
+]
+
+Do not include markdown or extra text.
+`;
+
+    // ⚡ Gemini call
+    const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: [{ role: "user", parts: [{ text: prompt }] }]
+    });
+
+    // 🧹 Clean response
+    let text = response.text;
+    text = text.replace(/```json/g, '').replace(/```/g, '');
+
+    let parsed;
+    try {
+        parsed = JSON.parse(text);
+    } catch (err) {
+        return apiResponse(res, 500, "AI response parsing failed");
+    }
+
+    // 💾 Save to DB
+    const saved = await new questionsModel({
+        // userId,
+        jobPosition,
+        jobDescription,
+        jobExperience,
+        qaList: parsed 
+    }).save();
+
+   
+    apiResponse(res, 200, "Questions generated successfully", {
+        questions: parsed,
+        savedId: saved._id
+    });
+});
