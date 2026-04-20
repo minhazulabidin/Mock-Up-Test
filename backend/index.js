@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express')
-const router= require('./router/api')
+const router= require('./router/api');
+const { globalErrorHandler } = require('./helper/globalErrorHandler');
 const port = process.env.PORT || 8000
 const app = express()
 app.use(express.json())
@@ -10,7 +11,7 @@ app.use(express.json())
 
 app.use(process.env.API_BASE_PATH, router)
 
-
+app.use(globalErrorHandler)
 app.get("/", (req, res) => {
     res.send("Hello World")
 })
