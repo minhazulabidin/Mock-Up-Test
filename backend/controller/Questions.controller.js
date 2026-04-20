@@ -7,6 +7,9 @@ exports.addQuestionController = asyncController(async (req, res) => {
     if (!jobPosition || !jobDescription || !jobExperience) {
         apiResponse(res, 400, "All fields are required");
     } else {
-        // const questions = await questionsModel.
+        const questions = await new questionsModel({
+            userId, jobPosition, jobDescription, jobExperience
+        }).save();
+        apiResponse(res, 200, "Question added successfully", questions);
     }
 })
