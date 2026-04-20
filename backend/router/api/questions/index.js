@@ -3,6 +3,6 @@ const { addQuestionController } = require('../../../controller/Questions.control
 const router = express.Router();
 
 
-router.get('/allQuestions',addQuestionController)
+router.post('/allQuestions', addQuestionController)
 
 module.exports = router;

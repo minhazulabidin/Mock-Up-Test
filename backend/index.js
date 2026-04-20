@@ -2,10 +2,11 @@ require('dotenv').config();
 const express = require('express')
 const router= require('./router/api');
 const { globalErrorHandler } = require('./helper/globalErrorHandler');
+const db = require('./config/db.config');
 const port = process.env.PORT || 8000
 const app = express()
 app.use(express.json())
-
+db()
 
 
 
