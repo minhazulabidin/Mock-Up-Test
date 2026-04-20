@@ -101,13 +101,13 @@ console.log(path)
         <Link
           onMouseEnter={() => setHovered(idx)}
           onClick={onItemClick}
-          className={`relative px-4 py-2 text-neutral-600 dark:text-neutral-300 ${path === item.link && "font-bold text-purple-700 rounded-full bg-gray-100 dark:bg-neutral-800"}`}
+          className={`relative px-4 py-2 text-neutral-600 dark:text-neutral-300 ${path === item.link && "font-bold text-purple-700 rounded-full bg-gray-200 dark:bg-neutral-800"}`}
           key={`link-${idx}`}
           href={item.link}>
           {hovered === idx && (
             <motion.div
               layoutId="hovered"
-              className={`absolute inset-0 h-full w-full rounded-full bg-gray-100 dark:bg-neutral-800 `} />
+              className={`absolute inset-0 h-full w-full rounded-full bg-gray-200 dark:bg-neutral-800 `} />
           )}
           <span className="relative z-20">{item.name}</span>
         </Link>

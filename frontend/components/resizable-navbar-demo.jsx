@@ -23,7 +23,7 @@ export default function NavbarDemo() {
     },
     {
       name: "Questions",
-      link: "/question",
+      link: "/questions",
     },
     {
       name: "Upgrade",
