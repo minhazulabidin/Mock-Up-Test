@@ -1,10 +1,10 @@
 import { ClerkProvider } from "@clerk/nextjs";
-import { Instrument_Sans } from "next/font/google";
+import { Outfit  } from "next/font/google";
 import "./globals.css";
 
-const instrumentSans = Instrument_Sans({
-  variable: "--font-instrument-sans",
-  subsets: ["regular"],
+const outfit = Outfit({
+  variable: "--font-outfit",
+  subsets: ["latin"],
 });
 
 
@@ -18,9 +18,9 @@ export default function RootLayout({ children }) {
     <ClerkProvider>
       <html
         lang="en"
-        className={`${instrumentSans.variable} h-full antialiased`}
+        className={`${outfit.variable} h-full antialiased`}
       >
-        <body className="min-h-full flex flex-col">{children}</body>
+        <body className="min-h-full flex flex-col font-outfit">{children}</body>
       </html>
     </ClerkProvider>
   );

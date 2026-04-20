@@ -15,7 +15,7 @@ const questionSchema = new mongoose.Schema({
         required: true
     },
     jobExperience: {
-        type: String,
+        type: Number,
         required: true
     }
 }, {
