@@ -10,17 +10,13 @@ import {
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-// import { useUser } from '@clerk/nextjs'
 
 const AddNewQues = () => {
     const [openDialog, setOpenDialog] = useState(false)
     const [jobRole, setJobRole] = useState('')
     const [jobDesc, setJobDesc] = useState('')
     const [exp, setExp] = useState(0)
-    // const { user, isLoaded } = useUser()
-    // if (!isLoaded) return <p>Loading...</p>;
-    // const { fullName, imageUrl, primaryEmailAddress } = user;
-    // console.log(fullName, imageUrl, primaryEmailAddress.emailAddress)
+    const user = useUserStore
 
     const onSubmit = e => {
         e.preventDefault()
