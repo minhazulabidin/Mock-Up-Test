@@ -16,7 +16,7 @@ const AddNewQues = () => {
     const [jobRole, setJobRole] = useState('')
     const [jobDesc, setJobDesc] = useState('')
     const [exp, setExp] = useState(0)
-    const user = useUserStore
+    // const user = useUserStore
 
     const onSubmit = e => {
         e.preventDefault()
@@ -36,9 +36,11 @@ const AddNewQues = () => {
                     <DialogHeader>
                         <DialogTitle>Tell us more about your job interview</DialogTitle>
                         <DialogDescription>
+                                    Add Details about your job position/role, Job description and years of experience
+                        </DialogDescription>
+                    </DialogHeader>
                             <form onSubmit={onSubmit}>
                                 <div className=''>
-                                    <h2 className='text-sm! mb-4!'>Add Details about your job position/role, Job description and years of experience</h2>
                                     <div className='mb-2'>
                                         <label>Job Role/Job Position</label>
                                         <Input className='mt-3' type='text' placeholder='Job Role/Job Position' required onChange={(e) => setJobRole(e.target.value)} />
@@ -57,8 +59,6 @@ const AddNewQues = () => {
                                     </div>
                                 </div>
                             </form>
-                        </DialogDescription>
-                    </DialogHeader>
                 </DialogContent>
             </Dialog>
         </div>
