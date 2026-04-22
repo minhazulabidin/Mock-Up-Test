@@ -1,6 +1,7 @@
 import { ClerkProvider } from "@clerk/nextjs";
-import { Outfit  } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "./globals.css";
+import SyncUser from "@/utils/SyncUser";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -20,7 +21,10 @@ export default function RootLayout({ children }) {
         lang="en"
         className={`${outfit.variable} h-full antialiased`}
       >
-        <body className="min-h-full flex flex-col font-outfit">{children}</body>
+        <body className="min-h-full flex flex-col font-outfit">
+          <SyncUser />
+          {children}
+        </body>
       </html>
     </ClerkProvider>
   );
