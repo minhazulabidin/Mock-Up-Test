@@ -2,12 +2,11 @@
 
 import { useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
-// import useUserStore from "./zustandStore/userStore";
+import useUserStore from "./zustandStore/userStore";
 
 export default function SyncUser() {
     const { user, isLoaded } = useUser();
     const setUser = useUserStore((state) => state.setUser);
-    const clearUser = useUserStore((state) => state.clearUser)
 
     useEffect(() => {
         if (isLoaded && user) {
@@ -18,7 +17,7 @@ export default function SyncUser() {
                 image: user.imageUrl,
             });
         }else{
-            clearUser()
+            setUser(null);
         }
     }, [isLoaded, user]);
 

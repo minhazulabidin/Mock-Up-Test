@@ -1,15 +1,15 @@
-import NavbarDemo from '@/components/resizable-navbar-demo'
-import React from 'react'
-// import SyncUser from "../utils/SyncUser"
+import NavbarDemo from "@/components/resizable-navbar-demo";
+import SyncUser from "@/utils/SyncUser";
+import React from "react";
 
 const DashboardLayout = ({ children }) => {
-    return (
-        <div>
-            <NavbarDemo />
-            {/* <SyncUser/> */}
-            {children}
-        </div>
-    )
-}
+  return (
+    <div>
+      <NavbarDemo />
+      <SyncUser />
+      {children}
+    </div>
+  );
+};
 
-export default DashboardLayout
+export default DashboardLayout;

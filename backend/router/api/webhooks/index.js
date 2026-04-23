@@ -11,13 +11,15 @@ router.post('/clerk', async (req, res) => {
 
 
         if (event.type === 'user.created') {
+            
             const userData = event.data;
 
             const existingUser = await userModel.findOne({
-                clerkUserId: userData.id
+                email: userData.email
             });
 
             if (!existingUser) {
+                console.log("webhook hit")
                 const newUser = await userModel.create({
                     fullName: `${userData.first_name || ''} ${userData.last_name || ''}`,
                     email: userData.email_addresses?.[0]?.email_address,
