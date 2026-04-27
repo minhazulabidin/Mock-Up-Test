@@ -1,5 +1,7 @@
 require("dotenv").config();
 const express = require("express");
+const dns = require('dns')
+dns.setServers(["1.1.1.1"]);
 const cors = require("cors");
 const router = require("./router/api");
 const { globalErrorHandler } = require("./helper/globalErrorHandler");
