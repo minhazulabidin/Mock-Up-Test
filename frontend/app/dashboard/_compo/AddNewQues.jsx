@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import useUserStore from "@/utils/zustandStore/userStore";
 import axios from "axios";
+import { p } from "motion/react-client";
 
 const AddNewQues = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -25,6 +26,7 @@ const AddNewQues = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
     const questionData = {
       jobPosition,
       jobDescription,
@@ -33,16 +35,12 @@ const AddNewQues = () => {
     };
     try {
       setLoading(true);
-      await axios
-        .post(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/questions/addQuestions`,
-          questionData,
-        )
-        .then((res) => {
-          console.log(res.data);
-        });
-    } catch (err) {
-      console.log(err);
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/questions/addQuestions`, questionData);
+      console.log(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
     }
   };
   return (
